@@ -11,11 +11,11 @@ struct ime {
 *start, * pst;
 ime* push(ime* st, int n);
 ime* pop(ime* st, int& n);
-void init(ime* st);
+void init(ime** st); //pl
 int empty(ime* st);
 
-void init(ime* st) {
-	st = NULL;
+void init(ime** st) { //pl
+	*st = NULL; //pl
 }
 
 int empty(ime* st) {
@@ -43,8 +43,8 @@ ime* pop(ime* st, int& n) {
 	return st;
 }
 
-void main() {
-	init(start);
+int main() {
+	init(&start); //pl
 	int num;
 	int N;
 	int A;
@@ -52,7 +52,7 @@ void main() {
 	while (cin >> num)
 		start = push(start, num);
 	cout << "S: ";
-	while (!empty(start)) {
+	while (!empty(start)) { //pl тук току що извлече всичко от стека и той вече е празен, за да правиш нещо с него
 		start = pop(start, num);
 		cout << num << " ";
 	}
@@ -62,10 +62,10 @@ void main() {
 	cin >> N;
 	cout << "\n And the new value: ";
 	cin >> A;
-	init(pst);
-	while (!empty(start)) {
+	init(&pst); //pl
+	while (!empty(start)) { //pl обедини с for. трябва да бъде 1 цикъл с проверка, дали не са свършили елементите в стека
 		for(int i=N-1; i>=0; i--) {
-		    start = pop(start, num);			
+		    start = pop(start, num);		//pl ще доведе до грешка, щом няма проверка за край
 			pst = push(pst, num);
 		}
 	}
@@ -73,7 +73,7 @@ void main() {
 	while (!empty(pst)) {
 		pst = pop(pst, num);
 		cout << num << " ";
-	} 
-	// to be continued 
+	}
+	// to be continued
 	system("pause");
 }
